@@ -1,5 +1,3 @@
-# loc.github.io
-Hello
 /*
 Thành viên:
 Nguyễn Thành Lộc - 22146345

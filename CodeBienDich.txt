@@ -1,0 +1,15 @@
+# Biên dịch module driver
+sudo make
+
+# Tải module driver vào kernel
+sudo insmod bmp180.ko
+
+# Gỡ module driver khỏi kernel
+sudo rmmod bmp180
+
+# Biên dịch thư viện bmp180_lib.c
+gcc -c bmp180_lib.c -o bmp180_lib.o
+ar rcs libbmp180.a bmp180_lib.o
+
+# Biên dịch chương trình test (codetest.c) và liên kết với thư viện
+gcc codetest.c -L. -lbmp180 -o bmp180_test

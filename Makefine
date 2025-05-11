@@ -1,0 +1,23 @@
+obj-m += bmp180.o
+
+TEST_EXEC = bmp180_test
+
+CFLAGS = -Wall -g
+LDFLAGS = -L.
+LDLIBS = -lbmp180
+
+all: driver lib test
+
+driver:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+lib:
+	gcc -c bmp180_lib.c -o bmp180_lib.o
+	ar rcs libbmp180.a bmp180_lib.o
+
+test:
+	gcc codetest.c -o $(TEST_EXEC) $(LDFLAGS) $(LDLIBS)
+
+clean:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	rm -f bmp180_lib.o libbmp180.a $(TEST_EXEC)
